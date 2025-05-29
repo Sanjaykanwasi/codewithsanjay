@@ -23,7 +23,7 @@ const PaymentPage = ({ username }) => {
     setCurrentUser(u);
     let dbpayments = await fetchPayment(username);
     setPayments(dbpayments);
-    console.log(u, dbpayments);
+    // console.log(u, dbpayments);
   };
 
   const pay = async (amount) => {
