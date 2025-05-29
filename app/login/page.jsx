@@ -1,17 +1,28 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (session) {
-    // Redirect to dashboard if user is already logged in
-    router.push("/dashboard");
-    return null; // Prevent rendering the login page
+  useEffect(() => {
+    if (status === "loading") return; // Wait until session is checked
+    if (session) {
+      router.push("/dashboard");
+    }
+  }, [session, status, router]);
+
+  if (status === "loading") {
+    return <div className="text-white text-center py-20">Loading...</div>;
   }
+
+  // if (session) {
+  //   // Redirect to dashboard if user is already logged in
+  //   router.push("/dashboard");
+  //   return null; // Prevent rendering the login page
+  // }
 
   return (
     <>

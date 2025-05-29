@@ -1,19 +1,35 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Dashboard from "components/Dashboard";
 
-const Dashboard = () => {
-  const { data: session } = useSession();
+const Page = () => {
+  const { data: session, status } = useSession();
 
   const router = useRouter();
 
-  if (!session) {
-    // Redirect to dashboard if user is already logged in
-    router.push("/login");
+  useEffect(() => {
+    if (status === "loading") return; // wait for session to load
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session, status, router]);
+
+  if (status === "loading" || !session) {
+    return <div className="text-center mt-10 text-lg">Loading...</div>;
   }
 
-  return <div>dashboard</div>;
+  // if (!session) {
+  //   // Redirect to dashboard if user is already logged in
+  //   router.push("/login");
+  // }
+
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 };
 
-export default Dashboard;
+export default Page;
