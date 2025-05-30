@@ -70,7 +70,7 @@ export const fetchuser = async (username) => {
 
 export const fetchPayment = async (username) => {
   await connectDB();
-  let payments = await Payment.find({ to_user: username })
+  let payments = await Payment.find({ to_user: username, done: true })
     .sort({ amount: -1 })
     .lean();
 

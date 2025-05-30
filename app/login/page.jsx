@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Loading from "components/Loading";
 
 const Login = () => {
   const { data: session, status } = useSession();
@@ -15,7 +16,11 @@ const Login = () => {
   }, [session, status, router]);
 
   if (status === "loading") {
-    return <div className="text-white text-center py-20">Loading...</div>;
+    return (
+      <div className="text-white text-center py-20">
+        <Loading />
+      </div>
+    );
   }
 
   // if (session) {

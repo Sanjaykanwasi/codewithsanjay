@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Dashboard from "components/Dashboard";
+import Loading from "components/Loading";
 
 const Page = () => {
   const { data: session, status } = useSession();
@@ -17,7 +18,11 @@ const Page = () => {
   }, [session, status, router]);
 
   if (status === "loading" || !session) {
-    return <div className="text-center mt-10 text-lg">Loading...</div>;
+    return (
+      <div className="text-center mt-10 text-lg">
+        <Loading />
+      </div>
+    );
   }
 
   // if (!session) {

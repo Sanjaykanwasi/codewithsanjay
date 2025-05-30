@@ -4,14 +4,38 @@ import { initiatePayment } from "actions/useraction";
 import Script from "next/script";
 import { fetchuser } from "actions/useraction";
 import { fetchPayment } from "actions/useraction";
+import { useSearchParams } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const PaymentPage = ({ username }) => {
   const [paymentform, setPaymentform] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [payments, setPayments] = useState([]);
+  const searchParams = useSearchParams();
+  const router = useRouter(); // Define router
 
   useEffect(() => {
     getData();
+  }, []);
+
+  useEffect(() => {
+    if (searchParams.get("paymentdone") == "true") {
+      toast("Thanks for your donation!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+    router.push(`/${username}`);
   }, []);
 
   const handleChange = (e) => {
@@ -32,6 +56,7 @@ const PaymentPage = ({ username }) => {
     let orderId = a.id;
     var options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+      // key:currentUser.razorpayid,
       amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: "INR",
       name: "Code With Sanjay", //your business name
@@ -58,32 +83,47 @@ const PaymentPage = ({ username }) => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
       <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
       <div className="cover w-full relative">
         <img
           className="w-full h-[350] object-cover"
-          src="https://as1.ftcdn.net/v2/jpg/06/66/40/76/1000_F_666407629_htoO7p0qGhDpLdISWJ4urk2eVmhFxx0S.jpg"
-          alt=""
+          src={currentUser.coverpic}
+          alt="No Image"
         />
-        <div className="avatar absolute -bottom-16 right-[47%] border-2 border-purple-900 rounded-full">
+        <div className="avatar absolute -bottom-16 right-[47%] border-2 border-purple-900 rounded-full overflow-hidden size-32">
           <img
-            className="rounded-full"
-            width={120}
-            height={120}
-            src="https://i.pinimg.com/1200x/a7/5d/62/a75d62adddc8397c7820df76d8d05a30.jpg"
-            alt=""
+            className="rounded-full object-cover size-32"
+            width={128}
+            height={128}
+            src={currentUser.profilepic}
+            alt="No Image"
           />
         </div>
       </div>
       <div className="info flex flex-col gap-2 justify-center items-center my-20">
         <div className="font-bold text-3xl">@{username}</div>
-        <div className="text-slate-500">Creating Movie & Show Reactions</div>
+        <div className="text-slate-500">Frontend dev with modern stack</div>
         <div className="payment flex gap-3 w-[80%] mt-7">
           <div className="supporters w-1/2  bg-slate-900 text-white p-10 rounded-2xl">
             {/* Supporters */}
             <h2 className="text-2xl font-bold mb-3">Supporters</h2>
             <ul className="mx-2 text-lg">
+              {payments.length === 0 && <li>No Payments Yet</li>}
               {payments.map((payment, index) => {
                 return (
                   <li key={index} className="my-4 flex gap-2 items-center">
@@ -138,7 +178,11 @@ const PaymentPage = ({ username }) => {
                 <button
                   onClick={() => pay(paymentform.amount * 100)}
                   type="button"
-                  className="text-black  cursor-pointer z-10 bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  disabled={
+                    paymentform.name?.length < 3 ||
+                    paymentform.message?.length < 3
+                  }
+                  className="text-black cursor-pointer z-10 bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-400 disabled:from-slate-900"
                 >
                   Donate Now
                 </button>
