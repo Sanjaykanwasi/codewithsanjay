@@ -105,11 +105,11 @@ const PaymentPage = ({ username }) => {
 
       <div className="cover w-full relative">
         <img
-          className="w-full h-[350] object-cover"
+          className="w-full h-48 md:h-[350] object-cover"
           src={currentUser.coverpic}
           alt="No Image"
         />
-        <div className="avatar absolute -bottom-16 right-[47%] border-2 border-purple-900 rounded-full overflow-hidden size-32">
+        <div className="avatar absolute -bottom-16 right-[36%] md:right-[47%] border-2 border-purple-900 rounded-full overflow-hidden size-32">
           <img
             className="rounded-full object-cover size-32"
             width={128}
@@ -130,8 +130,8 @@ const PaymentPage = ({ username }) => {
             ₹{payments.reduce((acc, curr) => acc + curr.amount, 0) / 100}
           </span>
         </div>
-        <div className="payment flex gap-3 w-[80%] mt-7">
-          <div className="supporters w-1/2  bg-slate-900 text-white p-10 rounded-2xl">
+        <div className="payment flex flex-col md:flex-row gap-3 w-[80%] mt-7">
+          <div className="supporters w-full md:w-1/2  bg-slate-900 text-white p-10 rounded-2xl">
             {/* Supporters */}
             <h2 className="text-2xl font-bold mb-3">Supporters</h2>
             <ul className="mx-2 text-lg">
@@ -152,7 +152,7 @@ const PaymentPage = ({ username }) => {
               })}
             </ul>
           </div>
-          <div className="makePayment w-1/2 bg-slate-900 text-white p-10 rounded-2xl">
+          <div className="makePayment w-full md:w-1/2 bg-slate-900 text-white p-10 rounded-2xl">
             {/* Make Payment Div */}
             <h2 className="text-2xl font-bold my-3">Make Payment</h2>
             <p className="text-sm my-5">
@@ -202,28 +202,28 @@ const PaymentPage = ({ username }) => {
               </div>
             </div>
             {/* Choose Payment from below */}
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-4 mt-5">
               <button
                 onClick={() => pay(10000)}
-                className="bg-blue-800 z-10 p-3 cursor-pointer rounded-lg w-full"
+                className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹100
               </button>
               <button
                 onClick={() => pay(20000)}
-                className="bg-blue-800 z-10 p-3 cursor-pointer rounded-lg w-full"
+                className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹200
               </button>
               <button
                 onClick={() => pay(50000)}
-                className="bg-blue-800 z-10 cursor-pointer p-3 rounded-lg w-full"
+                className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹500
               </button>
               <button
                 onClick={() => pay(100000)}
-                className="bg-blue-800 z-10 cursor-pointer p-3 rounded-lg w-full"
+                className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹1000
               </button>

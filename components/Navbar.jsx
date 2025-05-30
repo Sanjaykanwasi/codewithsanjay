@@ -5,128 +5,167 @@ import Link from "next/link";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const [showdropdown, setShowdropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef();
 
-  // Hide dropdown when clicking outside
+  // Close dropdown on outside click
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowdropdown(false);
+    const handler = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   return (
-    <nav className="bg-black flex text-white justify-between px-7 h-20 items-center">
-      <Link className="mt-7 block z-10 cursor-pointer" href={"/"}>
-        <img width={200} src="/logo.png" alt="" />
-      </Link>
+    <nav className="bg-black text-white px-5 py-4 shadow-md">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="z-20">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            width={160}
+            className="cursor-pointer"
+          />
+        </Link>
 
-      <ul className="flex justify-between items-center gap-4 z-10">
-        <li className="cursor-pointer">
-          <Link href={"/"}>Home</Link>
-        </li>
-        <li>
-          <Link href={"/about"}>About</Link>
-        </li>
-        <li>
-          <Link href={"/projects"}>Projects</Link>
-        </li>
-        <div className="relative" ref={dropdownRef}>
-          {session && (
-            <>
-              <button
-                onClick={() => setShowdropdown((prev) => !prev)}
-                id="dropdownDefaultButton"
-                data-dropdown-toggle="dropdown"
-                className="text-white mx-4 cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button"
-              >
-                {session.user.name}
-                <svg
-                  className="w-2.5 h-2.5 ms-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
+        {/* Hamburger for mobile */}
+        <button
+          className="md:hidden z-20 text-white"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            {menuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+
+        {/* Nav Links */}
+        <div
+          className={`w-full md:w-auto md:flex md:items-center md:gap-6 flex-col md:flex-row ${
+            menuOpen ? "flex" : "hidden"
+          } mt-4 md:mt-0 z-10`}
+        >
+          <ul className="flex flex-col md:flex-row items-center gap-4">
+            <li>
+              <Link href="/" className="hover:text-cyan-400 transition">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="hover:text-cyan-400 transition">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/projects" className="hover:text-cyan-400 transition">
+                Projects
+              </Link>
+            </li>
+          </ul>
+
+          {/* User Dropdown / Login */}
+          <div
+            className="mt-4 md:mt-0 md:ml-6 flex flex-col md:flex-row gap-3"
+            ref={dropdownRef}
+          >
+            {session ? (
+              <>
+                <button
+                  onClick={() => setShowDropdown(!showDropdown)}
+                  className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md text-sm flex items-center"
                 >
-                  <path
+                  {session.user.name}
+                  <svg
+                    className="w-3 h-3 ml-2"
+                    fill="none"
+                    viewBox="0 0 10 6"
                     stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
-              </button>
-              <div
-                id="dropdown"
-                className={`z-10 ${
-                  showdropdown ? "" : "hidden"
-                } bg-white divide-y absolute divide-gray-100 left-[20px] rounded-lg shadow-sm w-44 dark:bg-gray-700`}
-              >
-                <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                  aria-labelledby="dropdownDefaultButton"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M1 1l4 4 4-4"
+                    />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu */}
+                <div
+                  className={`absolute mt-2 bg-white text-black rounded-md shadow-md w-44 transition ${
+                    showDropdown ? "block" : "hidden"
+                  }`}
                 >
-                  <li>
-                    <Link
-                      href="dashboard"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href={`/${session.user.name}`}
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Your Page
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={() => signOut()}
-                      href="#"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Sign out
-                    </Link>
-                  </li>
-                </ul>
-              </div>{" "}
-            </>
-          )}
-          {session && (
-            <button
-              onClick={() => {
-                signOut();
-              }}
-              className="cursor-pointer relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
-            >
-              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-                Logout
-              </span>
-            </button>
-          )}
-          {!session && (
-            <Link href="/login">
-              <button className="cursor-pointer relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                  <ul className="py-2 text-sm">
+                    <li>
+                      <Link
+                        href="/dashboard"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href={`/${session.user.name}`}
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Your Page
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => signOut()}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      >
+                        Sign Out
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Logout Button (optional separate) */}
+                <button
+                  onClick={() => signOut()}
+                  className="bg-gradient-to-br from-purple-600 to-blue-500 text-white text-sm px-4 py-2 rounded-md mt-2 md:mt-0"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link href="/login">
+                <button className="bg-gradient-to-br from-purple-600 to-blue-500 text-white text-sm px-4 py-2 rounded-md">
                   Log In
-                </span>
-              </button>
-            </Link>
-          )}
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
-      </ul>
+      </div>
     </nav>
   );
-  <li>Home</li>;
 };
 
 export default Navbar;
