@@ -11,7 +11,11 @@ import { Bounce } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const PaymentPage = ({ username }) => {
-  const [paymentform, setPaymentform] = useState({});
+  const [paymentform, setPaymentform] = useState({
+    name: "",
+    message: "",
+    amount: "",
+  });
   const [currentUser, setCurrentUser] = useState({});
   const [payments, setPayments] = useState([]);
   const searchParams = useSearchParams();
@@ -55,8 +59,8 @@ const PaymentPage = ({ username }) => {
     let a = await initiatePayment(amount, username, paymentform);
     let orderId = a.id;
     var options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
-      // key:currentUser.razorpayid,
+      // key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      key: currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
       amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: "INR",
       name: "Code With Sanjay", //your business name
@@ -117,7 +121,15 @@ const PaymentPage = ({ username }) => {
       </div>
       <div className="info flex flex-col gap-2 justify-center items-center my-20">
         <div className="font-bold text-3xl">@{username}</div>
-        <div className="text-slate-500">Frontend dev with modern stack</div>
+        <div className="text-slate-500">
+          Recieved total {payments.length} payments.
+        </div>
+        <div className="text-slate-500">
+          Total Amount Recieved:{" "}
+          <span className="font-bold">
+            ₹{payments.reduce((acc, curr) => acc + curr.amount, 0) / 100}
+          </span>
+        </div>
         <div className="payment flex gap-3 w-[80%] mt-7">
           <div className="supporters w-1/2  bg-slate-900 text-white p-10 rounded-2xl">
             {/* Supporters */}
@@ -180,7 +192,8 @@ const PaymentPage = ({ username }) => {
                   type="button"
                   disabled={
                     paymentform.name?.length < 3 ||
-                    paymentform.message?.length < 3
+                    paymentform.message?.length < 3 ||
+                    paymentform.amount?.length < 1
                   }
                   className="text-black cursor-pointer z-10 bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-400 disabled:from-slate-900"
                 >

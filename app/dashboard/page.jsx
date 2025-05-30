@@ -11,6 +11,7 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
+    document.title = "Dashboard - Code with Sanjay";
     if (status === "loading") return; // wait for session to load
     if (!session) {
       router.push("/login");
@@ -24,12 +25,6 @@ const Page = () => {
       </div>
     );
   }
-
-  // if (!session) {
-  //   // Redirect to dashboard if user is already logged in
-  //   router.push("/login");
-  // }
-
   return (
     <div>
       <Dashboard />

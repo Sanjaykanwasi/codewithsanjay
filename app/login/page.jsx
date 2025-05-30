@@ -9,6 +9,7 @@ const Login = () => {
   const router = useRouter();
 
   useEffect(() => {
+    document.title = "Login - Code with Sanjay";
     if (status === "loading") return; // Wait until session is checked
     if (session) {
       router.push("/dashboard");
@@ -22,12 +23,6 @@ const Login = () => {
       </div>
     );
   }
-
-  // if (session) {
-  //   // Redirect to dashboard if user is already logged in
-  //   router.push("/dashboard");
-  //   return null; // Prevent rendering the login page
-  // }
 
   return (
     <>
@@ -49,7 +44,7 @@ const Login = () => {
                     </h2>
                   </div>
                   <div className="mt-10 grid space-y-4">
-                    <button className="group cursor-pointer h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+                    {/* <button className="group cursor-pointer h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
                       <div className="relative flex items-center space-x-4 justify-center">
                         <img
                           src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -60,7 +55,7 @@ const Login = () => {
                           Continue with Google
                         </span>
                       </div>
-                    </button>
+                    </button> */}
                     <button
                       onClick={() => {
                         signIn("github");

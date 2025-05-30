@@ -23,7 +23,7 @@ export const POST = async (req) => {
   let xx = validatePaymentVerification(
     { order_id: body.razorpay_order_id, payment_id: body.razorpay_payment_id },
     body.razorpay_signature,
-    process.env.KEY_SECRET
+    secret
   );
 
   if (xx) {

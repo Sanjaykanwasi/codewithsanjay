@@ -25,10 +25,16 @@ const Navbar = () => {
         <img width={200} src="/logo.png" alt="" />
       </Link>
 
-      <ul className="flex justify-between items-center gap-4">
-        <li>Home</li>
-        <li>About</li>
-        <li>Projects</li>
+      <ul className="flex justify-between items-center gap-4 z-10">
+        <li className="cursor-pointer">
+          <Link href={"/"}>Home</Link>
+        </li>
+        <li>
+          <Link href={"/about"}>About</Link>
+        </li>
+        <li>
+          <Link href={"/projects"}>Projects</Link>
+        </li>
         <div className="relative" ref={dropdownRef}>
           {session && (
             <>

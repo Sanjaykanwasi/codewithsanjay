@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 export default function Home() {
   return (
     <>
@@ -11,16 +12,20 @@ export default function Home() {
           and get inspired.
         </p>
         <div>
-          <button className="relative cursor-pointer inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-              Click Here!
-            </span>
-          </button>
-          <button className="relative cursor-pointer inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-              Read More
-            </span>
-          </button>
+          <Link href={"/login"}>
+            <button className="relative cursor-pointer inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                Click Here!
+              </span>
+            </button>
+          </Link>
+          <Link href={"/about"}>
+            <button className="relative cursor-pointer inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                Read More
+              </span>
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -30,7 +35,7 @@ export default function Home() {
       {/* Mid Sec 1 */}
       <div className="text-white container mx-auto pb-32 pt-14">
         <h1 className="text-2xl text-center font-bold mb-14">
-          Your fans can buy u a coffee
+          Those who believe in you can offer their help too
         </h1>
         <div className="flex gap-5 justify-around">
           <div className="item space-y-3 flex items-center flex-col justify-center">
@@ -40,8 +45,10 @@ export default function Home() {
               src="/man.gif"
               alt=""
             />
-            <p className="font-bold">Fund Yourself</p>
-            <p className="text-center">Your fans are available to help </p>
+            <p className="font-bold">Supporters can help</p>
+            <p className="text-center">
+              Your Supporters are available to help{" "}
+            </p>
           </div>
           <div className="item space-y-3 flex items-center flex-col justify-center">
             <img
@@ -50,8 +57,10 @@ export default function Home() {
               src="/coin.gif"
               alt=""
             />
-            <p className="font-bold">Fund Yourself</p>
-            <p className="text-center">Your fans are available to help </p>
+            <p className="font-bold">Supporters can donate</p>
+            <p className="text-center">
+              Your Supporters are willing to contribute financially{" "}
+            </p>
           </div>
           <div className="item space-y-3 flex items-center flex-col justify-center">
             <img
@@ -60,8 +69,10 @@ export default function Home() {
               src="/group.gif"
               alt=""
             />
-            <p className="font-bold">Fans want to help</p>
-            <p className="text-center">Your fans are available to help </p>
+            <p className="font-bold">Supporters can collaborate</p>
+            <p className="text-center">
+              Your Supporters are ready to collaborate with you{" "}
+            </p>
           </div>
         </div>
       </div>
