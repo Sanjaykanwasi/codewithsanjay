@@ -10,10 +10,11 @@ export default function ContactPage() {
         </h1>
 
         <p className="text-lg text-gray-300 text-center">
-          Hi, I'm{" "}
-          <span className="text-white font-semibold">Sanjay Kanwasi</span>, a
-          frontend developer based in Roorkee, India. I specialize in HTML, CSS,
-          JavaScript, Java, React, Tailwind CSS, Bootstrap, and Next.js.
+          Hello! I’m{" "}
+          <span className="test-white font-semibold">Sanjay Singh Kanwasi</span>{" "}
+          , a frontend developer with expertise in HTML, CSS, JavaScript, Java,
+          React, Tailwind CSS, Bootstrap, and Next.js. I’m passionate about
+          building clean, responsive, and interactive web interfaces.
         </p>
 
         <div className="space-y-4">
