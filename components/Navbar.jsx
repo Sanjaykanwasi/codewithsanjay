@@ -83,6 +83,11 @@ const Navbar = () => {
                 Projects
               </Link>
             </li>
+            <li>
+              <Link href="/contact" className="hover:text-cyan-400 transition">
+                Contact
+              </Link>
+            </li>
           </ul>
 
           {/* User Dropdown / Login */}
