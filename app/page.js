@@ -105,7 +105,7 @@ export default function Home() {
           </div>
 
           {/* Tailwind */}
-          <div className="space-y-3 flex items-center flex-col">
+          <div className="space-y-3 flex items-center mt-5 flex-col">
             <img width={88} src="/tailwind.png" alt="Tailwind Logo" />
             <p className="font-bold text-center">Tailwind CSS</p>
           </div>
