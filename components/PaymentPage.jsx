@@ -59,8 +59,8 @@ const PaymentPage = ({ username }) => {
     let a = await initiatePayment(amount, username, paymentform);
     let orderId = a.id;
     var options = {
-      // key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      key: currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      // key: currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
       amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: "INR",
       name: "Code With Sanjay", //your business name
@@ -122,10 +122,10 @@ const PaymentPage = ({ username }) => {
       <div className="info flex flex-col gap-2 justify-center items-center my-20">
         <div className="font-bold text-3xl">@{username}</div>
         <div className="text-slate-500">
-          Recieved total {payments.length} payments.
+          Sent total {payments.length} payments.
         </div>
         <div className="text-slate-500">
-          Total Amount Recieved:{" "}
+          Total Amount Donated:{" "}
           <span className="font-bold">
             ₹{payments.reduce((acc, curr) => acc + curr.amount, 0) / 100}
           </span>
@@ -133,7 +133,7 @@ const PaymentPage = ({ username }) => {
         <div className="payment flex flex-col md:flex-row gap-3 w-[80%] mt-7">
           <div className="supporters w-full md:w-1/2  bg-slate-900 text-white p-10 rounded-2xl">
             {/* Supporters */}
-            <h2 className="text-2xl font-bold mb-3">Supporters</h2>
+            <h2 className="text-2xl font-bold mb-3">Your Donations</h2>
             <ul className="mx-2 text-lg">
               {payments.length === 0 && <li>No Payments Yet</li>}
               {payments.map((payment, index) => {

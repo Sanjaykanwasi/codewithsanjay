@@ -9,10 +9,12 @@ export const initiatePayment = async (amount, to_username, paymentform) => {
 
   // fetch the secret of the user who is getting the payment
   let user = await User.findOne({ username: to_username });
-  const secret = user.razorpaysecret;
+  // const secret = user.razorpaysecret;
+  const secret = process.env.RAZORPAY_SECRET;
 
   var instance = new Razorpay({
-    key_id: user.razorpayid,
+    // key_id: user.razorpayid,
+    key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
     key_secret: secret,
   });
 
