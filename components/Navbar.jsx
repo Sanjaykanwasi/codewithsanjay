@@ -135,28 +135,28 @@ const Navbar = () => {
                         Your Page
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <button
                         onClick={() => signOut()}
-                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       >
                         Sign Out
                       </button>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
 
                 {/* Logout Button (optional separate) */}
                 <button
                   onClick={() => signOut()}
-                  className="bg-gradient-to-br from-purple-600 to-blue-500 text-white text-sm px-4 py-2 rounded-md mt-2 md:mt-0"
+                  className="bg-gradient-to-br from-purple-600 to-blue-500 text-white text-sm px-4 py-2 cursor-pointer rounded-md mt-2 md:mt-0"
                 >
                   Logout
                 </button>
               </>
             ) : (
               <Link href="/login">
-                <button className="bg-gradient-to-br from-purple-600 to-blue-500 text-white text-sm px-4 py-2 rounded-md">
+                <button className="bg-gradient-to-br from-purple-600 to-blue-500 text-white text-sm px-4 py-2 cursor-pointer rounded-md">
                   Log In
                 </button>
               </Link>
