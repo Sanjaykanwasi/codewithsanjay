@@ -61,7 +61,7 @@ const PaymentPage = ({ username }) => {
     var options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       // key: currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
-      amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      amount: amount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: "INR",
       name: "Code With Sanjay", //your business name
       description: "Test Transaction",
@@ -127,7 +127,7 @@ const PaymentPage = ({ username }) => {
         <div className="text-slate-500">
           Total Amount Donated:{" "}
           <span className="font-bold">
-            ₹{payments.reduce((acc, curr) => acc + curr.amount, 0) / 100}
+            ₹{payments.reduce((acc, curr) => acc + curr.amount, 0)}
           </span>
         </div>
         <div className="payment flex flex-col md:flex-row gap-3 w-[80%] mt-7">
@@ -142,9 +142,7 @@ const PaymentPage = ({ username }) => {
                     <img width={40} src="/avatar.gif" alt="" />
                     <span>
                       {payment.name} donated{" "}
-                      <span className="font-bold">
-                        ₹{payment.amount / 100}{" "}
-                      </span>
+                      <span className="font-bold">₹{payment.amount} </span>
                       with a message "{payment.message}".
                     </span>
                   </li>
@@ -188,7 +186,7 @@ const PaymentPage = ({ username }) => {
               />
               <div className="text-center z-20 mt-5">
                 <button
-                  onClick={() => pay(paymentform.amount * 100)}
+                  onClick={() => pay(paymentform.amount)}
                   type="button"
                   disabled={
                     paymentform.name?.length < 3 ||
@@ -204,25 +202,25 @@ const PaymentPage = ({ username }) => {
             {/* Choose Payment from below */}
             <div className="flex flex-wrap gap-4 mt-5">
               <button
-                onClick={() => pay(10000)}
+                onClick={() => pay(100)}
                 className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹100
               </button>
               <button
-                onClick={() => pay(20000)}
+                onClick={() => pay(200)}
                 className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹200
               </button>
               <button
-                onClick={() => pay(50000)}
+                onClick={() => pay(500)}
                 className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹500
               </button>
               <button
-                onClick={() => pay(100000)}
+                onClick={() => pay(1000)}
                 className="bg-blue-800 text-white z-10 p-3 cursor-pointer rounded-lg w-full sm:w-[48%] md:w-[23%]"
               >
                 Donate: ₹1000
